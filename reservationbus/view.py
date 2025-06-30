@@ -25,7 +25,7 @@ class RegisterView(generics.CreateAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({"message": "تم انشاء الاكونت"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "تم انشاء الحساب"}, status=status.HTTP_201_CREATED)
         except IntegrityError:
             return Response({"error": "البريد الإلكتروني مستخدم بالفعل"}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
