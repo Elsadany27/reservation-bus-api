@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-rt-&$!5#xm6on6zkico^yi_!063d_f-^+24#u04)-f@a0v2h&7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'reservationbus.User'  # use your app name
 
 
