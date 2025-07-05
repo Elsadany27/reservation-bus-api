@@ -5,8 +5,8 @@ from rest_framework.views import exception_handler
 from django.db import IntegrityError
 from rest_framework.exceptions import AuthenticationFailed
 
-from .models import User
-from .serializer import RegisterSerializer
+from .models import User,Trip, Ticket
+from .serializer import RegisterSerializer, TripSerializer, TicketSerializer
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -56,3 +56,25 @@ class UserCountView(APIView):
     def get(self, request):
         user_count = User.objects.count()
         return Response({"total_users": user_count})
+
+
+#trips
+from rest_framework.permissions import AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
+
+class TripListCreateView(generics.ListCreateAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['from_area', 'to_area', 'date']
+
+class TripDetailView(generics.RetrieveAPIView):
+    queryset = Trip.objects.all()
+    serializer_class = TripSerializer
+    permission_classes = [IsAuthenticated]
+
+class TicketCreateView(generics.CreateAPIView):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
+    permission_classes = [AllowAny]

@@ -31,7 +31,9 @@ SECRET_KEY = 'django-insecure-rt-&$!5#xm6on6zkico^yi_!063d_f-^+24#u04)-f@a0v2h&7
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-AUTH_USER_MODEL = 'reservationbus.User'  # use your app name
+AUTH_USER_MODEL = 'reservationbus.User'  # or whatever your app/model name is
+
+# AUTH_USER_MODEL = 'reservationbus.User'  # use your app name
 
 
 # Application definition
@@ -53,6 +55,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    
 }
 
 MIDDLEWARE = [
