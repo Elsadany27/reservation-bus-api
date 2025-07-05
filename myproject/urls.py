@@ -20,12 +20,16 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from reservationbus.view import RegisterView, CustomLoginView, UserCountView
+from reservationbus.view import RegisterView, CustomLoginView, UserCountView, TripListCreateView, TripDetailView, TicketCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('user-count/', UserCountView.as_view(), name='user-count'),
+
+    path('trips/', TripListCreateView.as_view(), name='trip-list-create'),
+    path('trips/<int:pk>/', TripDetailView.as_view(), name='trip-detail'),
+    path('tickets/', TicketCreateView.as_view(), name='ticket-create'),
 
 ]
