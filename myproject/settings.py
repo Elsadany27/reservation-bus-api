@@ -37,6 +37,17 @@ AUTH_USER_MODEL = 'reservationbus.User'  # or whatever your app/model name is
 
 
 # Application definition
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(weeks=49),  # or 1 day etc.
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
