@@ -1,35 +1,21 @@
-"""
-URL configuration for myproject project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path,include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
+from django.urls import path
+from reservationbus.view import (
+    RegisterView, CustomLoginView, UserCountView,
+    TripListCreateView, TripDetailView,
+    TicketCreateView,
+    ReserveTicketCreateView, UserReserveTicketsView
 )
-from reservationbus.view import RegisterView, CustomLoginView, UserCountView, TripListCreateView, TripDetailView, TicketCreateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('user-count/', UserCountView.as_view(), name='user-count'),
 
     path('trips/', TripListCreateView.as_view(), name='trip-list-create'),
     path('trips/<int:pk>/', TripDetailView.as_view(), name='trip-detail'),
+
     path('tickets/', TicketCreateView.as_view(), name='ticket-create'),
 
+    path('reserve-ticket/', ReserveTicketCreateView.as_view(), name='reserve-ticket'),
+    path('my-tickets/', UserReserveTicketsView.as_view(), name='my-reserve-tickets'),
 ]
