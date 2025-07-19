@@ -91,3 +91,35 @@ class UserReserveTicketsView(generics.ListAPIView):
 
     def get_queryset(self):
         return ReserveTicket.objects.filter(user=self.request.user)
+
+
+#seats
+
+BUS_TOTAL_SEATS = 50  # or get dynamically per trip if needed
+
+class AvailableSeatsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, trip_id):
+        try:
+            trip = Trip.objects.get(id=trip_id)
+
+            # Gather all reserved seat numbers for this trip
+            reservations = ReserveTicket.objects.filter(trip=trip)
+            reserved_seats = set()
+            for reservation in reservations:
+                reserved_seats.update(reservation.seat_numbers)
+
+            all_seats = set(range(1, BUS_TOTAL_SEATS + 1))
+            available_seats = sorted(all_seats - reserved_seats)
+
+            return Response({
+                "trip_id": trip_id,
+                "available_seats": available_seats,
+                "total_seats": BUS_TOTAL_SEATS,
+                "reserved_count": len(reserved_seats),
+                "available_count": len(available_seats),
+            })
+
+        except Trip.DoesNotExist:
+            return Response({"error": "الرحلة غير موجودة"}, status=status.HTTP_404_NOT_FOUND)

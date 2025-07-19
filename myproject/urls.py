@@ -3,7 +3,7 @@ from reservationbus.view import (
     RegisterView, CustomLoginView, UserCountView,
     TripListCreateView, TripDetailView,
     TicketCreateView,
-    ReserveTicketCreateView, UserReserveTicketsView
+    ReserveTicketCreateView, UserReserveTicketsView,AvailableSeatsView
 )
 
 urlpatterns = [
@@ -18,4 +18,7 @@ urlpatterns = [
 
     path('reserve-ticket/', ReserveTicketCreateView.as_view(), name='reserve-ticket'),
     path('my-tickets/', UserReserveTicketsView.as_view(), name='my-reserve-tickets'),
+
+    path('trips/<int:trip_id>/available-seats/', AvailableSeatsView.as_view(), name='available-seats'),
+
 ]
