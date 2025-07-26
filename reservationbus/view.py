@@ -123,3 +123,18 @@ class AvailableSeatsView(APIView):
 
         except Trip.DoesNotExist:
             return Response({"error": "الرحلة غير موجودة"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class AllReservedTicketsView(generics.ListAPIView):
+    queryset = ReserveTicket.objects.all()
+    serializer_class = ReserveTicketSerializer
+    permission_classes = [IsAuthenticated]  # Use [AllowAny] if you want to make it public
+
+
+
+class FilterAllReservedTicketsView(generics.ListAPIView):
+    queryset = ReserveTicket.objects.all()
+    serializer_class = ReserveTicketSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['trip', 'user__email', 'reserver_name']

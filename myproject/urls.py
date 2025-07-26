@@ -3,7 +3,7 @@ from reservationbus.view import (
     RegisterView, CustomLoginView, UserCountView,
     TripListCreateView, TripDetailView,
     TicketCreateView,
-    ReserveTicketCreateView, UserReserveTicketsView,AvailableSeatsView
+    ReserveTicketCreateView, UserReserveTicketsView,AvailableSeatsView,AllReservedTicketsView,FilterAllReservedTicketsView
 )
 
 urlpatterns = [
@@ -21,5 +21,8 @@ urlpatterns = [
     path('my-tickets/', UserReserveTicketsView.as_view(), name='my-reserve-tickets'),
     # New endpoint for checking available seats on a trip
     path('trips/<int:trip_id>/available-seats/', AvailableSeatsView.as_view(), name='available-seats'),
+
+    path('reserved-tickets/all/', AllReservedTicketsView.as_view(), name='all-reserved-tickets'),
+    path('reserved-tickets/filter/', FilterAllReservedTicketsView.as_view(), name='filter-reserved-tickets'),
 
 ]
